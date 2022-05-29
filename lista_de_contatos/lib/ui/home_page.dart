@@ -10,27 +10,42 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ContactHelper contactHelper = ContactHelper();
+  List<Contact> listContact = [];
 
   @override
   void initState() {
     super.initState();
-
-    Contact c = Contact();
-
-    c.name = "André";
-    c.email = "andre@teste.com";
-    c.phone = "5465465465";
-    c.image = "imgTeste";
-
-    contactHelper.saveContact(c);
-
-    contactHelper.getAllContacts().then((list) {
-      print(list);
+    setState(() {
+      contactHelper.getAllContacts().then((value) {
+        listContact = value;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Contatos"),
+        backgroundColor: Colors.red,
+        centerTitle: true,
+      ),
+    );
+  }
+
+  contactCard(BuildContext context, int index) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
